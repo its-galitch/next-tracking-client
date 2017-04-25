@@ -1,0 +1,79 @@
+
+<hr>
+<form >
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">{{title}} of ID {{searched_id}}</h3>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-2">
+        <!--<img [src]="data[2].img_url" class="img-thumbnail">-->
+      </div>
+      <div class="col-md-6">
+
+
+
+        </div>
+        <div class="row" *ngIf="data.length > 1">
+          <div class="col-md-2">
+            <label for="colors"> Colors:</label>
+          </div>
+          <div class="col-md-2">
+
+            <select id="colors" #color>
+              <option *ngFor="let color of data" value="{{color.id}}">{{ color.color_name }}</option>
+            </select>
+          </div>
+          <div class="col-md-2">
+            <button class="btn btn-primary"
+                    (click)="onCheckSizes(color.value)">
+              Check Sizes</button>
+          </div>
+        </div>
+
+      <div class="row" *ngIf="item_sizes.length">
+        <div class="col-md-3">
+          <label > Sizes:</label>
+        </div>
+        <div class="col-md-5">
+          <select   #sizes name="size">
+            <option *ngFor="let size of item_sizes"
+                    [value]="size.size">
+            {{ size.size }}
+
+            </option>
+          </select>
+        </div>
+
+
+
+      </div>
+      <!--<div class="col-md-2">-->
+        <!--<button class="btn btn-primary"-->
+                <!--(click)="onAddTracking(sizes)">-->
+          <!--Add to Tracking</button>-->
+      <!--</div>-->
+
+    </div>
+
+  </div>
+</div>
+</form>
+
+
+<div class="container">
+
+  <div class="row">
+    <div class="col-xs-10 col-sm-8 col-md-6 col-lg-4  col-xs-offset-1 col-sm-offset-2 col-md-offset-3 col-lg-offset-4">
+      <form (ngSubmit)="addSizeTracking()" #sizeForm="ngForm">
+        <label for="sizes"> Sizes available: </label>
+        <select id="sizes" name="size" class="form-control" ngModel required>
+          <option *ngFor="let size of item_sizes"
+                  [value]="size.size">{{size.size}}</option>
+        </select>
+        <button  class="btn btn-primary" type="submit" [disabled]="sizeForm.invalid"> Add Tracking</button>
+      </form>
+    </div>
+  </div>
+</div>

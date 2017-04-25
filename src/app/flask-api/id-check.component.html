@@ -1,0 +1,69 @@
+<div class="col-md-6 col-sm-8 col-md-offset-3 col-sm-offset-2">
+  <h3>Enter item to search in NEXT.IL</h3>
+  <form
+          (ngSubmit) ="onMySubmit()"
+          #f="ngForm">
+    <div class="form-group">
+      <label for="search_bar" class="sr-only"> ID of Item </label>
+      <input type="text"
+             id="search_bar"
+             class="form-control"
+             placeholder="Enter searched ID "
+             ngModel
+             name= "item_id"
+             pattern="\d{3}-\d{3}"
+             required
+             #item_id>
+
+    </div>
+
+    <div *ngIf ="hasError"
+         class="alert alert-danger" style="font-weight: 600">
+      There is some ERROR on the SERVER!
+    </div>
+
+    <div *ngIf ="!f.valid && f.touched"
+         class="help-block">
+      The VALID ID must be XXX-XXX. Where X - is a number.
+    </div>
+
+    <button class="btn btn-success form-control"
+            type="submit" [disabled]="f.invalid"
+
+    > Check ID </button>
+
+  </form>
+
+  <div *ngIf="data_received">
+    <hr>
+    <div class='form-group'>
+      <img class="img-thumbnail"
+           style="display: block; margin: auto; height: 300px; width: 300px"
+      src="/assets/img/make-fun-icon.png">
+
+    </div>
+    <h3 align="center">Chose Color</h3>
+    <form (ngSubmit)="onSubmitColor(colors)" #colors="ngForm">
+    <div class="form-group">
+        <select class="form-control"
+                ngModel
+                name="colors"
+                required>
+          <option
+                  class="list-group-item"
+                  [value]="item.id"
+                  *ngFor="let item of data">{{item.color}}
+            <span class="badge">{{item.id}}</span>
+          </option>
+        </select>
+      </div>
+      <button
+              class="form-control btn btn-primary"
+              type="submit"
+              [disabled]="colors.invalid">
+        Check Sizes
+      </button>
+    </form>
+  </div>
+</div>
+
