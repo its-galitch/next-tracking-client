@@ -13,6 +13,7 @@ import { SigninComponent } from './auth/signin/signin.component';
 import {MySiteRouting} from "./app-routing.module";
 import { HomeComponent } from './home/home.component';
 import {DataService} from "./data.service";
+import { SendToTrackingComponent } from './send-to-tracking/send-to-tracking.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import {DataService} from "./data.service";
     HeaderComponent,
     SignupComponent,
     SigninComponent,
-    HomeComponent
+    HomeComponent,
+    SendToTrackingComponent
 
   ],
   imports: [

@@ -1,0 +1,22 @@
+  <h3 align="center">Chose Size</h3>
+  <form (ngSubmit)="onAddSizeToTrack(sizesForm)"
+        #sizesForm="ngForm">
+    <div class="form-group">
+      <select class="form-control"
+              ngModel
+              name="size"
+              required>
+        <option
+                class="list-group-item"
+                [value]="size"
+                *ngFor="let size of allSizes">{{size}}
+        </option>
+      </select>
+    </div>
+    <button
+            class="form-control btn btn-primary"
+            type="submit"
+            [disabled]="sizesForm.invalid">
+      Check Sizes
+    </button>
+  </form>

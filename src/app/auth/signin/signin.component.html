@@ -1,5 +1,5 @@
 <form
-        (ngSubmit)="onSignup(f)"
+        (ngSubmit)="onSignin(f)"
         #f="ngForm"
         class="col-md-6 col-sm-8 col-md-offset-3 col-sm-offset-2">
   <h3 style="text-align: center">Sign In</h3>
@@ -7,7 +7,7 @@
   <div class="form-group">
     <label for="email">Email</label>
     <input
-            type="text"
+            type="email"
             id="email"
             name="email"
             ngModel
@@ -26,5 +26,6 @@
            required
            minlength="8">
   </div>
-  <button type="submit" class="btn btn-primary form-control">Sign Up</button>
+  <button type="submit"
+          class="btn btn-primary form-control" [disabled]="f.invalid">Sign Up</button>
 </form>

@@ -11,15 +11,16 @@ export class DataService{
     some = new Item('136-654', 'Ex Large');
     accepted_items : any[];
 
+
     constructor(private searchItemsService: SearchItemsService){}
 
-    getColors(){
-        this.searchItemsService.getColors().subscribe(
-            (result) => {
-                console.log(result);
-                this.accepted_items = result;
-            });
-    }
+    // getColors(){
+    //     this.searchItemsService.getColors().subscribe(
+    //         (result) => {
+    //             console.log(result);
+    //             this.accepted_items = result;
+    //         });
+    /* }*/
 
     addItemToTrack(item: any){
         this.itemsToTrack.push(item);

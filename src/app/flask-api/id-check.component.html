@@ -17,10 +17,6 @@
 
     </div>
 
-    <div *ngIf ="hasError"
-         class="alert alert-danger" style="font-weight: 600">
-      There is some ERROR on the SERVER!
-    </div>
 
     <div *ngIf ="!f.valid && f.touched"
          class="help-block">
@@ -28,32 +24,41 @@
     </div>
 
     <button class="btn btn-success form-control"
-            type="submit" [disabled]="f.invalid"
-
-    > Check ID </button>
-
+            type="submit" [disabled]="f.invalid"> Check ID </button>
   </form>
+
+  <div *ngIf ="hasError">
+    <hr>
+    <div
+      class="alert alert-danger" style="font-weight: 600; text-align: center">
+      The ID You Searched IS NOT FOUND!
+    </div>
+    <img class="img-thumbnail"
+         style="display: block; margin: auto;"
+         src="/assets/img/not_found.jpg">
+    <h2 align="center">We are so sorry...</h2>
+  </div>
 
   <div *ngIf="data_received">
     <hr>
     <div class='form-group'>
       <img class="img-thumbnail"
-           style="display: block; margin: auto; height: 300px; width: 300px"
+           style="display: block; margin: auto; height: 250px; width: 250px"
       src="/assets/img/make-fun-icon.png">
 
     </div>
     <h3 align="center">Chose Color</h3>
-    <form (ngSubmit)="onSubmitColor(colors)" #colors="ngForm">
+    <form (ngSubmit)="getAllSizes(colors.value.color)" #colors="ngForm">
     <div class="form-group">
         <select class="form-control"
                 ngModel
-                name="colors"
+                name="color"
                 required>
           <option
+                  *ngFor="let item of data"
                   class="list-group-item"
-                  [value]="item.id"
-                  *ngFor="let item of data">{{item.color}}
-            <span class="badge">{{item.id}}</span>
+                  [value]="item.id">{{item.color}}
+            <!--<span class="badgesizeitem.id}}</span>-->
           </option>
         </select>
       </div>
@@ -65,5 +70,10 @@
       </button>
     </form>
   </div>
+  <app-send-to-tracking
+          *ngIf="allSizes.length"
+          [all-sizes]="allSizes"
+          [tracking-id]="trackingItemId">
+  </app-send-to-tracking>
 </div>
 

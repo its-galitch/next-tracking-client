@@ -1,7 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
 import {SearchItemsService} from '../search-items.service';
-import { Response } from '@angular/http';
-import { Observable}  from 'rxjs/Rx'
 import {NgForm} from "@angular/forms";
 import {DataService} from "../data.service";
 
@@ -15,41 +13,41 @@ export class CheckIdBarComponent {
   data: any[];
   hasError: boolean = false;
   data_received: boolean = false;
+  allSizes: any[] = [];
+  sizesReceived:boolean = false;
+  trackingItemId: string;
+
   // img_path: string = 'http://127.0.0.1:5000/get_image/';
 
   constructor(
-      private searchService: SearchItemsService,
+      private searchItemsService: SearchItemsService,
       private dataService: DataService
   ) {}
 
 
 
-  onSendSearch(searched_item: string){
-    this.data_received = false;
-    this.searchService.searchData(searched_item).subscribe(
-      (results: any) =>  {
-        this.data = results;
-        this.data_received = true;
-        console.log(results)
-
-      });
-  }
-
   onMySubmit(){
-      // console.log(this.idCheckForm.value);
-      this.searchService.sendServerRequest(this.idCheckForm.value,'colors').subscribe(
+      this.trackingItemId = this.idCheckForm.value.item_id;
+      this.searchItemsService.sendServerRequest({item_id: this.trackingItemId},'/colors').subscribe(
       (response) => {
           console.log(response);
-          this.data_received = true;
+          // this.data_received = true;
           this.data = response;
-          if (response.error){
+          if (!response){
+              this.data_received = false;
               this.hasError = true;
           }
       });
   }
 
-  onGetColors(){
-      this.dataService.getColors();
-  }
+    getAllSizes(item_id: string){
+        this.trackingItemId = item_id;
+        this.searchItemsService.sendServerRequest({item_id: item_id}, '/sizes').subscribe(
+            (response) => {
+                console.log(response);
+                this.sizesReceived = true;
+                this.allSizes = response;
+            });
+    }
 
 }
