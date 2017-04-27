@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {SearchItemsService} from "../../search-items.service";
+import {AuthService} from "../../auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-signin',
@@ -9,7 +11,9 @@ import {SearchItemsService} from "../../search-items.service";
 })
 export class SigninComponent implements OnInit {
 
-  constructor(private searchItemsService: SearchItemsService ) { }
+  constructor(private searchItemsService: SearchItemsService,
+              private auth: AuthService,
+              private router: Router ) { }
 
   ngOnInit() {
   }
@@ -21,7 +25,12 @@ export class SigninComponent implements OnInit {
     this.searchItemsService.sendServerRequest(userDetails, '/sign_in').subscribe(
       (response) => {
         console.log(response);
-        this.searchItemsService.userToken = response.token;
+        if(response && response.token){
+          this.searchItemsService.userToken = response.token;
+          this.auth.login();
+          this.router.navigate(['/add_track']);
+        }
+
       }
     );
 

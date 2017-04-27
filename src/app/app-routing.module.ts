@@ -7,11 +7,12 @@ import {CheckIdBarComponent} from "app/flask-api/id-check.component";
 import {SignupComponent} from "./auth/signup/signup.component";
 import {SigninComponent} from "./auth/signin/signin.component";
 import {HomeComponent} from "./home/home.component";
+import {AuthGuard} from "./auth.guard";
 
 
 const APP_ROUTES: Routes = [
     {path: '', component: HomeComponent},
-    {path: 'add_track', component: CheckIdBarComponent},
+    {path: 'add_track', canActivate: [AuthGuard], component: CheckIdBarComponent},
     {path: 'signup', component: SignupComponent},
     {path: 'signin', component: SigninComponent}
 

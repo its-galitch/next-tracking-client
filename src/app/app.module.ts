@@ -14,6 +14,8 @@ import {MySiteRouting} from "./app-routing.module";
 import { HomeComponent } from './home/home.component';
 import {DataService} from "./data.service";
 import { SendToTrackingComponent } from './send-to-tracking/send-to-tracking.component';
+import {AuthService} from "./auth.service";
+import {AuthGuard} from "./auth.guard";
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import { SendToTrackingComponent } from './send-to-tracking/send-to-tracking.com
   ],
   providers: [
     SearchItemsService,
-    DataService
+    DataService,
+    AuthService,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })

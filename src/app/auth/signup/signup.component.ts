@@ -1,7 +1,8 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {NgForm} from "@angular/forms";
-import {formArrayNameProvider} from "@angular/forms/src/directives/reactive_directives/form_group_name";
 import {SearchItemsService} from "../../search-items.service";
+import {Router} from "@angular/router";
+import {AuthService} from "../../auth.service";
 
 @Component({
   selector: 'app-signup',
@@ -10,7 +11,9 @@ import {SearchItemsService} from "../../search-items.service";
 })
 export class SignupComponent implements OnInit {
   @ViewChild('f') form: NgForm;
-  constructor(private searchItemsService: SearchItemsService) { }
+  constructor(private searchItemsService: SearchItemsService,
+              private auth: AuthService,
+              private router: Router ) { }
 
   ngOnInit() {
   }
@@ -33,6 +36,8 @@ export class SignupComponent implements OnInit {
               console.log(response);
               console.log(response.token);
               this.searchItemsService.userToken = response.token;
+              this.auth.login();
+              this.router.navigate(['/add_track']);
             });
   }
 
