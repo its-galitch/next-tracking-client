@@ -39,25 +39,25 @@
     <h2 align="center">We are so sorry...</h2>
   </div>
 
-  <div *ngIf="data_received">
+  <div *ngIf="colors_display">
     <hr>
     <div class='form-group'>
       <img class="img-thumbnail"
-           style="display: block; margin: auto; height: 250px; width: 250px"
-      src="/assets/img/make-fun-icon.png">
+           style="display: block; margin: auto;"
+      [src]="item_image">
 
     </div>
-    <h3 align="center">Chose Color</h3>
-    <form (ngSubmit)="getAllSizes(colors.value.color)" #colors="ngForm">
+    <h3 align="center">Choose Color</h3>
+    <form (ngSubmit)="getAllSizes(colorsForm.value.color)" #colorsForm="ngForm">
     <div class="form-group">
         <select class="form-control"
                 ngModel
                 name="color"
                 required>
           <option
-                  *ngFor="let item of data"
+                  *ngFor="let item of colors"
                   class="list-group-item"
-                  [value]="item.id">{{item.color}}
+                  [value]="item.item_id">{{item.color}}
             <!--<span class="badgesizeitem.id}}</span>-->
           </option>
         </select>
@@ -65,7 +65,7 @@
       <button
               class="form-control btn btn-primary"
               type="submit"
-              [disabled]="colors.invalid">
+              [disabled]="colorsForm.invalid">
         Check Sizes
       </button>
     </form>
